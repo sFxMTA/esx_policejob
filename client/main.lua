@@ -122,7 +122,7 @@ function OpenCloakroomMenu()
 			local awaitService
 
 			ESX.TriggerServerCallback('esx_service:isInService', function(isInService)
-				if Config.MaxInService ~= -1 then -- I'm not sure if you wanted to set it this way, idk what you wanted to do in case of -1 value there
+				if Config.MaxInService ~= -1 then -- I'm not sure if you wanted to do if -1, review it yourself or maybe explain me what it should do
 					if not isInService then
 						ESX.TriggerServerCallback('esx_service:enableService', function(canTakeService, maxInService, inServiceCount)
 							if not canTakeService then
