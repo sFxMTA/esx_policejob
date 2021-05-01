@@ -122,9 +122,8 @@ function OpenCloakroomMenu()
 			local awaitService
 
 			ESX.TriggerServerCallback('esx_service:isInService', function(isInService)
-				if not isInService then
-
-					if Config.MaxInService == -1 then
+				if Config.MaxInService ~= -1 then -- I'm not sure if you wanted to set it this way, idk what you wanted to do in case of -1 value there
+					if not isInService then
 						ESX.TriggerServerCallback('esx_service:enableService', function(canTakeService, maxInService, inServiceCount)
 							if not canTakeService then
 								ESX.ShowNotification(_U('service_max', inServiceCount, maxInService))
@@ -144,25 +143,10 @@ function OpenCloakroomMenu()
 								ESX.ShowNotification(_U('service_in'))
 							end
 						end, 'police')
-					else 
+					else
 						awaitService = true
-						playerInService = true
-
-						local notification = {
-							title    = _U('service_anonunce'),
-							subject  = '',
-							msg      = _U('service_in_announce', GetPlayerName(PlayerId())),
-							iconType = 1
-						}
-
-						TriggerServerEvent('esx_service:notifyAllInService', notification, 'police')
-						TriggerEvent('esx_policejob:updateBlip')
-						ESX.ShowNotification(_U('service_in'))
 					end
-
-				else
-					awaitService = true
-				end
+				end	
 			end, 'police')
 
 			while awaitService == nil do
